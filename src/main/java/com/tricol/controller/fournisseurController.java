@@ -1,4 +1,4 @@
-package com.tricol.Controller;
+package com.tricol.controller;
 
 public class fournisseurController {
 

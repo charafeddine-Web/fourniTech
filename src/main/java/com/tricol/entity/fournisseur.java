@@ -1,6 +1,4 @@
-package com.tricol.Entity;
-
-import org.springframework.lang.Nullable;
+package com.tricol.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +7,8 @@ import javax.persistence.Id;
 
 @Entity
 public class fournisseur {
+
+    public fournisseur() {}
 
     @Id
     private int id;
