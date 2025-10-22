@@ -9,12 +9,10 @@
          https://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="fournisseurRepository" class="com.tricol.repository.fournisseurRepository" />
+
     <bean id="fournisseurService" class="com.tricol.service.fournisseurService">
         <constructor-arg ref="fournisseurRepository"/>
     </bean>
-
-
-
 
 
 </beans>

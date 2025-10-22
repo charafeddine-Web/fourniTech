@@ -1,106 +1,65 @@
 package com.tricol.entity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
+@Table(name = "fournisseurs")
 public class fournisseur {
 
     public fournisseur() {}
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Column(unique=true)
-    private String ICE;
+    @Column(name = "ice", unique = true, nullable = false, length = 20)
+    private String ice;
 
+    @Column(nullable = false, length = 100)
     private String societe;
 
     private String adresse;
 
+    @Column(length = 20)
     private String telephone;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String ville;
 
-    private String Contact;
 
 
-    public fournisseur(String ICE,String societe,String adresse,String telephone,String email,String ville,String Contact) {
-        this.ICE = ICE;
+    public fournisseur(String ice, String societe, String adresse, String telephone,
+                       String email, String ville) {
+        this.ice = ice;
         this.societe = societe;
         this.adresse = adresse;
         this.telephone = telephone;
         this.email = email;
         this.ville = ville;
-        this.Contact = Contact;
     }
 
-    public int getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getIce() { return ice; }
+    public void setIce(String ice) { this.ice = ice; }
 
-    public String getICE() {
-        return ICE;
-    }
+    public String getSociete() { return societe; }
+    public void setSociete(String societe) { this.societe = societe; }
 
-    public void setICE(String ICE) {
-        this.ICE = ICE;
-    }
+    public String getAdresse() { return adresse; }
+    public void setAdresse(String adresse) { this.adresse = adresse; }
 
-    public String getSociete() {
-        return societe;
-    }
+    public String getTelephone() { return telephone; }
+    public void setTelephone(String telephone) { this.telephone = telephone; }
 
-    public void setSociete(String societe) {
-        this.societe = societe;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getAdresse() {
-        return adresse;
-    }
+    public String getVille() { return ville; }
+    public void setVille(String ville) { this.ville = ville; }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
 
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public void setVille(String ville) {
-        this.ville = ville;
-    }
-
-    public String getContact() {
-        return Contact;
-    }
-
-    public void setContact(String contact) {
-        Contact = contact;
-    }
 }
