@@ -2,7 +2,6 @@ package com.tricol.controller;
 
 import com.tricol.entity.fournisseur;
 import com.tricol.service.fournisseurService;
-import jdk.jfr.Unsigned;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,15 +31,15 @@ public class fournisseurController {
         return fournisseurService.findAll();
     }
 
-    @GetMapping
-    public Optional<fournisseur> getFournisseurById(@PathVariable int id) {
-        return  fournisseurService.findById(id);
+    @GetMapping("/{id}")
+    public Optional<fournisseur> getFournisseurById(@PathVariable("id") int id) {
+        return fournisseurService.findById(id);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public String deleteFournisseurById(@PathVariable int id) {
         Optional<fournisseur> fournisseur = fournisseurService.findById(id);
-        if(fournisseur.isPresent()) {
+        if (fournisseur.isPresent()) {
             fournisseurService.delete(fournisseur.get());
             return "Fournisseur supprimé avec succès";
         } else {
@@ -48,10 +47,10 @@ public class fournisseurController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public String updateFournisseur(@PathVariable int id, @RequestBody fournisseur fournisseur) {
         Optional<fournisseur> existingOpt = fournisseurService.findById(id);
-        if(existingOpt.isPresent()) {
+        if (existingOpt.isPresent()) {
             fournisseur existing = existingOpt.get();
             existing.setIce(fournisseur.getIce());
             existing.setSociete(fournisseur.getSociete());

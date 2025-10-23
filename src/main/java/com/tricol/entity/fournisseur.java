@@ -1,6 +1,7 @@
 package com.tricol.entity;
-import javax.persistence.*;
+import jakarta.persistence.Entity;
 
+import javax.persistence.*;
 
 @Entity
 @Table(name = "fournisseurs")
