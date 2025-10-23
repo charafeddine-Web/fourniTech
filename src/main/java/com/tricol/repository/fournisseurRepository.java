@@ -1,5 +1,8 @@
 package com.tricol.repository;
 
-public class fournisseurRepository {
+import com.tricol.entity.fournisseur;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface  fournisseurRepository extends JpaRepository<fournisseur,Integer> {
 
 }
