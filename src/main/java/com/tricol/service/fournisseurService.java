@@ -2,6 +2,7 @@ package com.tricol.service;
 
 import com.tricol.entity.fournisseur;
 import com.tricol.repository.fournisseurRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;

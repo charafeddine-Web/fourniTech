@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-         https://www.springframework.org/schema/beans/spring-beans.xsd
-         http://www.springframework.org/schema/context
-         https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <context:annotation-config/>
     <context:component-scan base-package="com.tricol" />
+
+    <mvc:annotation-driven/>
+
+
+    <jpa:repositories base-package="com.tricol.repository"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager" />
+
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/fournitech_db?useSSL=false&amp;serverTimezone=UTC"/>
@@ -15,7 +26,6 @@
         <property name="password" value=""/>
     </bean>
 
-    <jpa:repositories base-package="com.tricol.repository" entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="transactionManager" xmlns:jpa="http://www.springframework.org/schema/data/jpa"/>
 
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -37,13 +47,16 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-
+    <bean id="fournisseurController" class="com.tricol.controller.fournisseurController">
+        <constructor-arg ref="fournisseurService" />
+    </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean id="fournisseurRepository" class="com.tricol.repository.fournisseurRepository" />
 
     <bean id="fournisseurService" class="com.tricol.service.fournisseurService">
         <constructor-arg ref="fournisseurRepository"/>
     </bean>
+
+
 
 </beans>

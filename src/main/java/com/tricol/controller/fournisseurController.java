@@ -3,12 +3,17 @@ package com.tricol.controller;
 import com.tricol.entity.fournisseur;
 import com.tricol.service.fournisseurService;
 import jdk.jfr.Unsigned;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/fournisseurs")
 public class fournisseurController {
+
+    @Autowired
     private fournisseurService fournisseurService;
 
     public fournisseurController(fournisseurService fournisseurService) {
@@ -22,7 +27,7 @@ public class fournisseurController {
         return "Fournisseur ajouté avec succès" + fournisseur;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<fournisseur> getAllFournisseur() {
         return fournisseurService.findAll();
     }
@@ -32,7 +37,7 @@ public class fournisseurController {
         return  fournisseurService.findById(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     public String deleteFournisseurById(@PathVariable int id) {
         Optional<fournisseur> fournisseur = fournisseurService.findById(id);
         if(fournisseur.isPresent()) {
@@ -43,7 +48,7 @@ public class fournisseurController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public String updateFournisseur(@PathVariable int id, @RequestBody fournisseur fournisseur) {
         Optional<fournisseur> existingOpt = fournisseurService.findById(id);
         if(existingOpt.isPresent()) {
