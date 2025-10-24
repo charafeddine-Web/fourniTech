@@ -3,6 +3,7 @@ package com.tricol.controller;
 import com.tricol.entity.fournisseur;
 import com.tricol.service.fournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,28 +13,28 @@ import java.util.Optional;
 @RequestMapping("/fournisseurs")
 public class fournisseurController {
 
-    @Autowired
+
     private fournisseurService fournisseurService;
 
     public fournisseurController(fournisseurService fournisseurService) {
         this.fournisseurService = fournisseurService;
     }
 
-
     @PostMapping
-    public String createFournisseur(@RequestParam fournisseur fournisseur) {
+    public String createFournisseur(@RequestBody fournisseur fournisseur) {
         fournisseurService.save(fournisseur);
         return "Fournisseur ajouté avec succès" + fournisseur;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<fournisseur> getAllFournisseur() {
         return fournisseurService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<fournisseur> getFournisseurById(@PathVariable("id") int id) {
-        return fournisseurService.findById(id);
+    public ResponseEntity<fournisseur> getFournisseurById(@PathVariable("id") int id) {
+        Optional<fournisseur> fournisseur = fournisseurService.findById(id);
+        return fournisseur.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -53,19 +54,29 @@ public class fournisseurController {
         if (existingOpt.isPresent()) {
             fournisseur existing = existingOpt.get();
             existing.setIce(fournisseur.getIce());
+            existing.setNom(fournisseur.getNom());
             existing.setSociete(fournisseur.getSociete());
             existing.setAdresse(fournisseur.getAdresse());
             existing.setTelephone(fournisseur.getTelephone());
             existing.setEmail(fournisseur.getEmail());
             existing.setVille(fournisseur.getVille());
 
-            fournisseurService.save(existing);
+            fournisseurService.update(existing);
             return "Fournisseur mis à jour avec succès";
         } else {
             return "Fournisseur non trouvé";
         }
     }
 
+    @GetMapping("/nom")
+    public ResponseEntity<List<fournisseur>> getFournisseurByNom(@RequestParam("nom") String nom) {
+        List<fournisseur> fournisseurs = fournisseurService.findByName(nom);
+        return ResponseEntity.ok(fournisseurs);
+    }
 
+    @GetMapping("/email")
+    public fournisseur getFournisseurByEmail(@RequestParam("email") String email) {
+        return fournisseurService.findByEmail(email);
+    }
 
 }

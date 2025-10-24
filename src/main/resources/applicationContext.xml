@@ -24,7 +24,6 @@
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
         <property name="entityManagerFactoryInterface" value="jakarta.persistence.EntityManagerFactory"/>
-
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>

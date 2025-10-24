@@ -1,10 +1,9 @@
 package com.tricol.entity;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 
 @Entity
-@Table(name = "fournisseurs")
+@Table(name = "fournisseur")
 public class fournisseur {
 
     public fournisseur() {}
@@ -15,6 +14,9 @@ public class fournisseur {
 
     @Column(name = "ice", unique = true, nullable = false, length = 20)
     private String ice;
+
+    @Column(nullable = false)
+    private String nom;
 
     @Column(nullable = false, length = 100)
     private String societe;
@@ -30,19 +32,27 @@ public class fournisseur {
     private String ville;
 
 
-
     public fournisseur(String ice, String societe, String adresse, String telephone,
-                       String email, String ville) {
+                       String email, String ville, String nom) {
         this.ice = ice;
         this.societe = societe;
         this.adresse = adresse;
         this.telephone = telephone;
         this.email = email;
         this.ville = ville;
+        this.nom = nom;
     }
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
     public String getIce() { return ice; }
     public void setIce(String ice) { this.ice = ice; }

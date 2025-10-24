@@ -35,7 +35,8 @@ public class fournisseurService {
         fournisseurRepository.save(fournisseur);
     }
 
-
+    public List<fournisseur> findByName(String name) {return fournisseurRepository.findByNom(name) ; };
+    public fournisseur findByEmail(String email) {return fournisseurRepository.findByEmail(email) ;};
 
 
 
